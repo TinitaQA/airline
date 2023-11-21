@@ -53,7 +53,7 @@ public class AviaSoulsTest {
     }
 
     @Test
-    public void shouldSearch() {
+    public void shouldSearchSome() {
 
         Ticket soul1 = new Ticket(
                 "Санкт-Петербург",
@@ -81,6 +81,72 @@ public class AviaSoulsTest {
 
         Ticket[] expected = {soul2, soul1};
         Ticket[] actual = aviaSouls.search("Санкт-Петербург", "Гавана");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchOne() {
+
+        Ticket soul1 = new Ticket(
+                "Санкт-Петербург",
+                "Гавана",
+                100_000,
+                6,
+                23);
+        Ticket soul2 = new Ticket(
+                "Санкт-Петербург",
+                "Гавана",
+                70_000,
+                7,
+                21);
+        Ticket soul3 = new Ticket(
+                "Санкт-Петербург",
+                "Москва",
+                10_000,
+                21,
+                23);
+
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(soul1);
+        aviaSouls.add(soul2);
+        aviaSouls.add(soul3);
+
+        Ticket[] expected = {soul3};
+        Ticket[] actual = aviaSouls.search("Санкт-Петербург", "Москва");
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchNone() {
+
+        Ticket soul1 = new Ticket(
+                "Санкт-Петербург",
+                "Гавана",
+                100_000,
+                6,
+                23);
+        Ticket soul2 = new Ticket(
+                "Санкт-Петербург",
+                "Гавана",
+                70_000,
+                7,
+                21);
+        Ticket soul3 = new Ticket(
+                "Санкт-Петербург",
+                "Москва",
+                10_000,
+                21,
+                23);
+
+        AviaSouls aviaSouls = new AviaSouls();
+        aviaSouls.add(soul1);
+        aviaSouls.add(soul2);
+        aviaSouls.add(soul3);
+
+        Ticket[] expected = {};
+        Ticket[] actual = aviaSouls.search("Гавана", "Москва");
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -136,7 +202,7 @@ public class AviaSoulsTest {
     }
 
     @Test
-    public void shouldSearchAndSortBy() {
+    public void shouldSearchAndSortBySome() {
         Ticket soul1 = new Ticket(
                 "Санкт-Петербург",
                 "Гавана",
@@ -188,6 +254,5 @@ public class AviaSoulsTest {
         Ticket[] actual = aviaSouls.searchAndSortBy("Санкт-Петербург", "Москва", ticketTimeComparator);
 
         Assertions.assertArrayEquals(expected, actual);
-
     }
 }
